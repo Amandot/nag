@@ -1,0 +1,94 @@
+.submit-complaint-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.submit-complaint-page h1 {
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  color: #666;
+  margin-bottom: 32px;
+  font-size: 16px;
+}
+
+.submit-complaint-page .card {
+  margin-bottom: 24px;
+}
+
+.submit-complaint-page textarea,
+.submit-complaint-page select {
+  font-family: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.submit-complaint-page select {
+  cursor: pointer;
+}
+
+.submit-complaint-page small {
+  display: block;
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.location-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.location-group input {
+  flex: 1;
+}
+
+.location-or {
+  color: #999;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.location-info {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.info-card {
+  background: #e7f3ff;
+  border-left: 4px solid #007bff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.info-card h3 {
+  color: #007bff;
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.info-card ol {
+  margin-left: 20px;
+  color: #333;
+}
+
+.info-card li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}

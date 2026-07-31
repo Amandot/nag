@@ -1,0 +1,249 @@
+.admin-reports {
+  min-height: 100vh;
+  padding: 1.75rem 4vw 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  color: #111827;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+}
+
+.admin-reports h1 {
+  margin: 0 0 30px 0;
+  font-size: 26px;
+  letter-spacing: 0.04em;
+  color: #111827;
+}
+
+.report-filters {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  margin-bottom: 30px;
+}
+
+.report-filters h2 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.report-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.generate-btn,
+.export-btn,
+.clear-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.generate-btn {
+  background: #007bff;
+  color: white;
+}
+
+.generate-btn:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.generate-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.export-btn {
+  background: #28a745;
+  color: white;
+}
+
+.export-btn:hover:not(:disabled) {
+  background: #218838;
+}
+
+.export-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.clear-btn {
+  background: #6b7280;
+  color: white;
+}
+
+.clear-btn:hover {
+  background: #4b5563;
+}
+
+.report-summary {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  margin-bottom: 30px;
+}
+
+.report-summary h2 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.summary-card {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 6px;
+  border-left: 4px solid #3b82f6;
+}
+
+.summary-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.summary-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #111827;
+}
+
+.report-data {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.report-data h2 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.report-table-container {
+  overflow-x: auto;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.report-table th,
+.report-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.report-table th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+  position: sticky;
+  top: 0;
+}
+
+.report-table .complaint-id {
+  font-family: monospace;
+  color: #666;
+}
+
+.report-table .time-cell {
+  text-align: right;
+  font-family: monospace;
+}
+
+.priority-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.priority-badge.priority-critical {
+  background: #dc3545;
+  color: white;
+}
+
+.priority-badge.priority-high {
+  background: #ff9800;
+  color: white;
+}
+
+.priority-badge.priority-medium {
+  background: #ffc107;
+  color: #333;
+}
+
+.priority-badge.priority-low {
+  background: #28a745;
+  color: white;
+}
+
+.error-message {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
