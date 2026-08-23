@@ -18,7 +18,7 @@ def create_app(config_class=Config):
     
     # Enable CORS for frontend - configured for Render frontend
     # Allow requests from your React frontend hosted on Render
-    frontend_url = os.getenv('FRONTEND_URL', 'https://nagriksathi-frontend.onrender.com')
+    frontend_url = os.getenv('FRONTEND_URL', 'https://nag-phi.vercel.app')
     CORS(app, resources={
         r"/api/*": {
             "origins": [frontend_url, "http://localhost:3000", "https://nag-phi.vercel.app"],
