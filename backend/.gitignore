@@ -51,8 +51,7 @@ Thumbs.db
 uploads/
 
 # ML Models
-ml_models/*.pkl
-ml_models/*.joblib
+# (Removed to allow deployment to Render)
 
 # Testing
 .pytest_cache/
