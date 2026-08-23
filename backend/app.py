@@ -21,7 +21,7 @@ def create_app(config_class=Config):
     frontend_url = os.getenv('FRONTEND_URL', 'https://nagriksathi-frontend.onrender.com')
     CORS(app, resources={
         r"/api/*": {
-            "origins": [frontend_url, "http://localhost:3000"],
+            "origins": [frontend_url, "http://localhost:3000", "https://nag-phi.vercel.app"],
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
             "allow_headers": ["Content-Type", "Authorization"]
         }
