@@ -4,9 +4,13 @@ Configuration settings for the Grievance Prioritization System.
 import os
 from datetime import timedelta
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Get the backend directory path
 BACKEND_DIR = Path(__file__).parent
+
+# Load environment variables from .env file
+load_dotenv(BACKEND_DIR / '.env')
 
 class Config:
     """Base configuration."""
