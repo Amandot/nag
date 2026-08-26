@@ -11,8 +11,10 @@ Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 7.1, 7.2
 
 import logging
 from typing import List, Tuple, Dict, Any, Optional
+from typing import List, Tuple, Dict, Any, Optional
 from datetime import datetime
 from models import Category, PriorityLevel
+from config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -246,7 +248,8 @@ class PriorityScoringEngine:
         nearby_sensitive_locations: List[str],
         category: Category,
         duplicate_count: int,
-        created_at: datetime
+        created_at: datetime,
+        image_severity_score: int = 0
     ) -> Tuple[int, Dict[str, Any]]:
         """
         Calculate the overall impact score for a complaint.
@@ -286,7 +289,20 @@ class PriorityScoringEngine:
             duplicate_score +
             time_score
         )
-        impact_score = min(base_score, 100)
+        text_impact_score = min(base_score, 100)
+        
+        if image_severity_score > 0:
+            text_weight = Config.TEXT_PRIORITY_WEIGHT
+            image_weight = Config.IMAGE_SEVERITY_WEIGHT
+            
+            impact_score = int(
+                (text_impact_score * text_weight) + 
+                (image_severity_score * image_weight)
+            )
+            # Ensure it doesn't exceed 100
+            impact_score = min(impact_score, 100)
+        else:
+            impact_score = text_impact_score
         
         # Build factors dictionary for explanation generation
         factors = {
@@ -310,6 +326,11 @@ class PriorityScoringEngine:
                 'score': time_score,
                 'explanation': time_explanation
             },
+            'image_severity': {
+                'score': image_severity_score,
+                'explanation': f"Image analysis severity score: {image_severity_score}" if image_severity_score > 0 else "No image severity score"
+            },
+            'text_impact_score': text_impact_score,
             'total_score': impact_score
         }
         
@@ -373,8 +394,16 @@ class PriorityScoringEngine:
         
         # Start with priority level and total score
         explanation_parts = [
-            f"Priority: {priority_level.value} (Impact Score: {total_score}/100)"
+            f"Priority: {priority_level.value} (Final Impact Score: {total_score}/100)"
         ]
+        
+        if factors.get('image_severity', {}).get('score', 0) > 0:
+            text_score = factors.get('text_impact_score', 0)
+            img_score = factors['image_severity']['score']
+            explanation_parts.append(
+                f"Score Calculation: (Text NLP Score: {text_score} * {Config.TEXT_PRIORITY_WEIGHT}) + "
+                f"(Image Severity: {img_score} * {Config.IMAGE_SEVERITY_WEIGHT}) = {total_score}"
+            )
         
         # Add contributing factors (only those with non-zero scores)
         contributing_factors = []
@@ -421,7 +450,8 @@ class PriorityScoringEngine:
         nearby_sensitive_locations: List[str],
         category: Category,
         duplicate_count: int,
-        created_at: datetime
+        created_at: datetime,
+        image_severity_score: int = 0
     ) -> Tuple[int, PriorityLevel, str]:
         """
         Complete priority calculation pipeline.
@@ -448,7 +478,8 @@ class PriorityScoringEngine:
             nearby_sensitive_locations=nearby_sensitive_locations,
             category=category,
             duplicate_count=duplicate_count,
-            created_at=created_at
+            created_at=created_at,
+            image_severity_score=image_severity_score
         )
         
         # Assign priority level

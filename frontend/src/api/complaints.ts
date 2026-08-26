@@ -36,6 +36,15 @@ export interface Complaint {
   } | null;
   priority_level: string;
   impact_score: number;
+  final_priority_score?: number;
+  image_analysis?: {
+    category: string;
+    issue: string;
+    severity: string;
+    severity_score: number;
+    confidence: number;
+  } | null;
+  media_urls?: string[];
   status: string;
   explanation: string;
   created_at: string;
@@ -59,8 +68,11 @@ export interface FeedbackData {
 }
 
 export const complaintsAPI = {
-  submit: async (data: ComplaintSubmission): Promise<Complaint> => {
-    const response = await apiClient.post('/complaints', data);
+  submit: async (data: ComplaintSubmission | FormData): Promise<Complaint> => {
+    const config = data instanceof FormData 
+      ? { headers: { 'Content-Type': 'multipart/form-data' } } 
+      : {};
+    const response = await apiClient.post('/complaints', data, config);
     return response.data;
   },
 

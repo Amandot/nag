@@ -102,6 +102,15 @@ class Complaint(db.Model):
     impact_score = db.Column(db.Integer, default=0, nullable=False)
     explanation = db.Column(db.Text, nullable=True)
     
+    # Image Analysis (CNN)
+    image_category = db.Column(db.String(100), nullable=True)
+    image_issue = db.Column(db.String(100), nullable=True)
+    image_severity = db.Column(db.String(50), nullable=True)
+    image_severity_score = db.Column(db.Integer, nullable=True)
+    image_confidence = db.Column(db.Float, nullable=True)
+    final_priority_score = db.Column(db.Integer, nullable=True)
+
+    
     # Status tracking
     status = db.Column(db.Enum(Status), nullable=False, default=Status.SUBMITTED, index=True)
     
@@ -131,6 +140,14 @@ class Complaint(db.Model):
             'priority_level': self.priority_level.value,
             'impact_score': self.impact_score,
             'explanation': self.explanation,
+            'image_analysis': {
+                'category': self.image_category,
+                'issue': self.image_issue,
+                'severity': self.image_severity,
+                'severity_score': self.image_severity_score,
+                'confidence': self.image_confidence
+            } if self.image_category or self.image_issue else None,
+            'final_priority_score': self.final_priority_score,
             'status': self.status.value,
             'assigned_officer_id': self.assigned_officer_id,
             'cluster_id': self.cluster_id,

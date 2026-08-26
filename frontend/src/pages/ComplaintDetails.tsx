@@ -107,6 +107,19 @@ const ComplaintDetails: React.FC = () => {
               </div>
             </div>
 
+            {complaint.image_analysis && (
+              <div className="complaint-section">
+                <h3>Image Analysis (CNN)</h3>
+                <div className="ml-results-box">
+                  <p><strong>Predicted Category:</strong> {complaint.image_analysis.category}</p>
+                  <p><strong>Detected Issue:</strong> {complaint.image_analysis.issue}</p>
+                  <p><strong>Image Severity:</strong> {complaint.image_analysis.severity}</p>
+                  <p><strong>Image Score:</strong> {complaint.image_analysis.severity_score} / 100</p>
+                  <p><strong>Model Confidence:</strong> {(complaint.image_analysis.confidence * 100).toFixed(1)}%</p>
+                </div>
+              </div>
+            )}
+
             <div className="complaint-section">
               <h3>Description</h3>
               <p className="complaint-description">{complaint.description}</p>

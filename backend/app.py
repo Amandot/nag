@@ -1,7 +1,7 @@
 """
 Main Flask application entry point for the Grievance Prioritization System.
 """
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import Config
@@ -78,6 +78,10 @@ def create_app(config_class=Config):
     app.register_blueprint(admin_bp, url_prefix='/api/admin')
     app.register_blueprint(admin_complaints_bp, url_prefix='/api/admin')
     app.register_blueprint(health_bp, url_prefix='/api')
+    
+    @app.route('/api/uploads/<path:filename>')
+    def serve_upload(filename):
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
     
     # Create tables
     with app.app_context():

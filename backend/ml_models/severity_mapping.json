@@ -1,0 +1,14 @@
+{
+    "0": {
+        "severity": "major_pothole",
+        "score": 90
+    },
+    "1": {
+        "severity": "medium_pothole",
+        "score": 60
+    },
+    "2": {
+        "severity": "minor_pothole",
+        "score": 30
+    }
+}

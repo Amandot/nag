@@ -34,6 +34,7 @@ interface Complaint {
     changed_at: string;
     notes: string;
   };
+  media_urls?: string[];
 }
 
 const AdminComplaintsManager: React.FC = () => {

@@ -177,6 +177,26 @@ const ComplaintTimeline: React.FC = () => {
           <span className="label">Description:</span>
           <span className="value">{complaint.description}</span>
         </div>
+        {complaint.media_urls && complaint.media_urls.length > 0 && (
+          <div className="detail-row">
+            <span className="label">Attached Image:</span>
+            <span className="value">
+              <div className="complaint-images">
+                {complaint.media_urls.map((url: string, index: number) => {
+                  const filename = url.split('\\').pop()?.split('/').pop();
+                  return (
+                    <img 
+                      key={index} 
+                      src={`http://localhost:5000/api/uploads/${filename}`} 
+                      alt={`Complaint attachment ${index + 1}`} 
+                      style={{ maxWidth: '100%', maxHeight: '400px', marginTop: '10px', borderRadius: '8px' }}
+                    />
+                  );
+                })}
+              </div>
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Time Analysis */}

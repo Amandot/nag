@@ -46,6 +46,15 @@ class Config:
     # ML Model settings
     ML_MODEL_PATH = str(BACKEND_DIR / 'ml_models' / 'classifier.pkl')
     VECTORIZER_PATH = str(BACKEND_DIR / 'ml_models' / 'vectorizer.pkl')
+    IMAGE_CLASSIFIER_MODEL_PATH = str(BACKEND_DIR / 'ml_models' / 'image_classifier.keras')
+    IMAGE_SEVERITY_MODEL_PATH = str(BACKEND_DIR / 'ml_models' / 'severity_model.keras')
+    CLASS_MAPPING_PATH = str(BACKEND_DIR / 'ml_models' / 'class_mapping.json')
+    SEVERITY_MAPPING_PATH = str(BACKEND_DIR / 'ml_models' / 'severity_mapping.json')
+    
+    # Image Analysis Thresholds
+    IMAGE_CONFIDENCE_THRESHOLD = float(os.environ.get('IMAGE_CONFIDENCE_THRESHOLD', '0.60'))
+    IMAGE_SEVERITY_WEIGHT = float(os.environ.get('IMAGE_SEVERITY_WEIGHT', '0.30'))
+    TEXT_PRIORITY_WEIGHT = float(os.environ.get('TEXT_PRIORITY_WEIGHT', '0.70'))
     
     # Priority scoring settings
     SEVERITY_TERMS = [

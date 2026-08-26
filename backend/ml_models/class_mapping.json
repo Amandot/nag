@@ -1,0 +1,47 @@
+{
+    "0": {
+        "category": "Unknown",
+        "issue": "Damaged concrete structures",
+        "has_severity": false
+    },
+    "1": {
+        "category": "Unknown",
+        "issue": "DamagedElectricalPoles",
+        "has_severity": false
+    },
+    "2": {
+        "category": "Unknown",
+        "issue": "DamagedRoadSigns",
+        "has_severity": false
+    },
+    "3": {
+        "category": "Unknown",
+        "issue": "DeadAnimalsPollution",
+        "has_severity": false
+    },
+    "4": {
+        "category": "Unknown",
+        "issue": "FallenTrees",
+        "has_severity": false
+    },
+    "5": {
+        "category": "Unknown",
+        "issue": "Garbage",
+        "has_severity": false
+    },
+    "6": {
+        "category": "Unknown",
+        "issue": "Graffitti",
+        "has_severity": false
+    },
+    "7": {
+        "category": "Unknown",
+        "issue": "IllegalParking",
+        "has_severity": false
+    },
+    "8": {
+        "category": "Unknown",
+        "issue": "Potholes and RoadCracks",
+        "has_severity": false
+    }
+}

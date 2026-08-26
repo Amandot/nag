@@ -16,6 +16,7 @@ from services.priority_scoring import get_priority_scoring_engine
 from services.duplicate_detection import get_duplicate_detection_service
 from services.notification_service import notification_service
 from services.feedback_service import get_feedback_service
+from services.image_analysis import analyze_image
 from utils.authorization import require_complaint_ownership, require_self_or_admin
 from werkzeug.utils import secure_filename
 import os
@@ -145,6 +146,28 @@ def submit_complaint():
                     media_urls.append(filepath)
                     logger.info(f"File uploaded: {filepath}")
         
+        # Perform Image Analysis (CNN) if images exist
+        image_analysis_data = None
+        img_analysis_error = None
+        image_severity_score = 0
+        if media_urls:
+            # Analyze the first file (assuming it's the primary image)
+            first_image = media_urls[0]
+            if first_image.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp')):
+                logger.info(f"Running CNN Image Analysis on: {first_image}")
+                analysis_result = analyze_image(first_image)
+                image_analysis_data = analysis_result.get('image_analysis')
+                img_analysis_error = analysis_result.get('image_analysis_error')
+                
+                if image_analysis_data:
+                    logger.info(f"CNN result: {image_analysis_data}")
+                    image_severity_score = image_analysis_data.get('severity_score', 0)
+                    
+                    # If user didn't select a category, and NLP confidence is low, 
+                    # we could theoretically use the CNN category. But we will just store it for now.
+                else:
+                    logger.warning(f"CNN Image Analysis failed: {img_analysis_error}")
+        
         # Process complaint text with NLP engine
         # Requirements: 3.1, 3.2, 3.3, 3.4
         nlp_engine = get_nlp_engine()
@@ -212,6 +235,14 @@ def submit_complaint():
             created_at=datetime.utcnow()
         )
         
+        # Set CNN Image Analysis data
+        if image_analysis_data:
+            complaint.image_category = image_analysis_data.get('category')
+            complaint.image_issue = image_analysis_data.get('issue')
+            complaint.image_severity = image_analysis_data.get('severity')
+            complaint.image_severity_score = image_analysis_data.get('severity_score', 0)
+            complaint.image_confidence = image_analysis_data.get('confidence', 0.0)
+        
         # Set NLP-extracted data
         complaint.set_keywords(keywords)
         complaint.set_severity_terms(severity_terms)
@@ -258,11 +289,13 @@ def submit_complaint():
             nearby_sensitive_locations=nearby_sensitive_locations,
             category=complaint_category,
             duplicate_count=duplicate_count,
-            created_at=complaint.created_at
+            created_at=complaint.created_at,
+            image_severity_score=image_severity_score
         )
         
         # Update complaint with priority data
         complaint.impact_score = impact_score
+        complaint.final_priority_score = impact_score  # Store for clarity
         complaint.priority_level = priority_level
         complaint.explanation = explanation
         

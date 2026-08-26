@@ -184,3 +184,15 @@
   margin-bottom: 20px;
   font-size: 14px;
 }
+
+.ml-results-box {
+  background: #f0f7ff;
+  border-left: 4px solid #8e44ad;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.ml-results-box p {
+  color: #333;
+  margin: 6px 0;
+}
