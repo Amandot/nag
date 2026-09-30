@@ -142,8 +142,12 @@ def submit_complaint():
                     filepath = os.path.join(upload_folder, filename)
                     
                     file.save(filepath)
-                    media_urls.append(filepath)
-                    logger.info(f"File uploaded: {filepath}")
+                    
+                    # Generate full URL for the file
+                    file_url = request.host_url + f"api/uploads/{filename}"
+                    
+                    media_urls.append(file_url)
+                    logger.info(f"File uploaded: {filepath}, URL: {file_url}")
         
         # Process complaint text with NLP engine
         # Requirements: 3.1, 3.2, 3.3, 3.4

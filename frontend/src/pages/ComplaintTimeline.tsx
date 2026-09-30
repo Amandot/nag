@@ -177,6 +177,18 @@ const ComplaintTimeline: React.FC = () => {
           <span className="label">Description:</span>
           <span className="value">{complaint.description}</span>
         </div>
+        {complaint.media_urls && complaint.media_urls.length > 0 && (
+          <div className="detail-row media-row">
+            <span className="label">Photos:</span>
+            <div className="media-gallery">
+              {complaint.media_urls.map((url: string, idx: number) => (
+                <a key={idx} href={url} target="_blank" rel="noopener noreferrer">
+                  <img src={url} alt={`Complaint media ${idx + 1}`} className="complaint-media-img" />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Time Analysis */}

@@ -110,6 +110,23 @@ const ComplaintDetails: React.FC = () => {
             <div className="complaint-section">
               <h3>Description</h3>
               <p className="complaint-description">{complaint.description}</p>
+              
+              {complaint.media_urls && complaint.media_urls.length > 0 && (
+                <div style={{ marginTop: '15px' }}>
+                  <h4 style={{ fontSize: '14px', marginBottom: '8px', color: '#555' }}>Attached Photos</h4>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    {complaint.media_urls.map((url: string, idx: number) => (
+                      <a key={idx} href={url} target="_blank" rel="noopener noreferrer">
+                        <img 
+                          src={url} 
+                          alt={`Attachment ${idx + 1}`} 
+                          style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd' }} 
+                        />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="complaint-section">

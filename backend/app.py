@@ -79,6 +79,12 @@ def create_app(config_class=Config):
     app.register_blueprint(admin_complaints_bp, url_prefix='/api/admin')
     app.register_blueprint(health_bp, url_prefix='/api')
     
+    # Route to serve uploaded files
+    @app.route('/api/uploads/<path:filename>')
+    def serve_upload(filename):
+        from flask import send_from_directory, current_app
+        return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+    
     # Create tables
     with app.app_context():
         db.create_all()

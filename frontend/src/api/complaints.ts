@@ -41,6 +41,7 @@ export interface Complaint {
   created_at: string;
   assigned_at?: string;
   resolved_at?: string;
+  media_urls?: string[];
 }
 
 export interface StatusHistory {
@@ -59,8 +60,11 @@ export interface FeedbackData {
 }
 
 export const complaintsAPI = {
-  submit: async (data: ComplaintSubmission): Promise<Complaint> => {
-    const response = await apiClient.post('/complaints', data);
+  submit: async (data: ComplaintSubmission | FormData): Promise<Complaint> => {
+    const isFormData = data instanceof FormData;
+    const response = await apiClient.post('/complaints', data, {
+      headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {}
+    });
     return response.data;
   },
 

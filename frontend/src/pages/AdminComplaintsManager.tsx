@@ -34,6 +34,7 @@ interface Complaint {
     changed_at: string;
     notes: string;
   };
+  media_urls?: string[];
 }
 
 const AdminComplaintsManager: React.FC = () => {
@@ -319,6 +320,11 @@ const AdminComplaintsManager: React.FC = () => {
                       <td className="description">
                         {complaint.description.substring(0, 100)}
                         {complaint.description.length > 100 && '...'}
+                        {complaint.media_urls && complaint.media_urls.length > 0 && (
+                          <span title={`${complaint.media_urls.length} photo(s) attached`} style={{ marginLeft: '8px', cursor: 'help' }}>
+                            📷
+                          </span>
+                        )}
                       </td>
                       <td className="location-cell">
                         {complaint.location?.address ? (

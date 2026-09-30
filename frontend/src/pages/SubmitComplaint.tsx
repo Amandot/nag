@@ -146,19 +146,33 @@ const SubmitComplaint: React.FC = () => {
     setLoading(true);
 
     try {
-      // In production, upload files to storage and get URLs
-      const mediaUrls: string[] = [];
+      let submitData: any;
       
-      const complaint = await complaintsAPI.submit({
-        description: formData.description,
-        category: formData.category,
-        location: {
-          latitude: formData.latitude,
-          longitude: formData.longitude,
-          address: formData.address,
-        },
-        media_urls: mediaUrls,
-      });
+      if (files && files.length > 0) {
+        const formDataObj = new FormData();
+        formDataObj.append('description', formData.description);
+        formDataObj.append('category', formData.category);
+        formDataObj.append('latitude', formData.latitude.toString());
+        formDataObj.append('longitude', formData.longitude.toString());
+        formDataObj.append('address', formData.address);
+        
+        for (let i = 0; i < files.length; i++) {
+          formDataObj.append('files', files[i]);
+        }
+        submitData = formDataObj;
+      } else {
+        submitData = {
+          description: formData.description,
+          category: formData.category,
+          location: {
+            latitude: formData.latitude,
+            longitude: formData.longitude,
+            address: formData.address,
+          },
+        };
+      }
+      
+      const complaint = await complaintsAPI.submit(submitData);
 
       setSuccess(`Complaint submitted successfully! ID: ${complaint.complaint_id}`);
       

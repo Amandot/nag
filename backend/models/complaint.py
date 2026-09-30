@@ -113,6 +113,7 @@ class Complaint(db.Model):
     
     # Relationships
     feedbacks = db.relationship('Feedback', backref='complaint', lazy='dynamic', cascade='all, delete-orphan')
+    status_histories = db.relationship('StatusHistory', backref='complaint', lazy='dynamic', cascade='all, delete-orphan')
     
     def __repr__(self):
         return f'<Complaint {self.complaint_id} - {self.category.value} - {self.priority_level.value}>'
