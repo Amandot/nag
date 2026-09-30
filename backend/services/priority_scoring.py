@@ -57,9 +57,9 @@ class PriorityScoringEngine:
     
     # Priority level thresholds
     PRIORITY_THRESHOLDS = {
-        PriorityLevel.CRITICAL: 76,
-        PriorityLevel.HIGH: 51,
-        PriorityLevel.MEDIUM: 26,
+        PriorityLevel.CRITICAL: 45,
+        PriorityLevel.HIGH: 30,
+        PriorityLevel.MEDIUM: 15,
         PriorityLevel.LOW: 0
     }
     
@@ -278,7 +278,7 @@ class PriorityScoringEngine:
         duplicate_score, duplicate_explanation = self.calculate_duplicate_score(duplicate_count)
         time_score, time_explanation = self.calculate_time_decay_score(age_hours)
         
-        # Calculate total impact score (capped at 100)
+        # Calculate total impact score (capped at 50)
         base_score = (
             severity_score +
             location_score +
@@ -286,7 +286,7 @@ class PriorityScoringEngine:
             duplicate_score +
             time_score
         )
-        impact_score = min(base_score, 100)
+        impact_score = min(base_score, 50)
         
         # Build factors dictionary for explanation generation
         factors = {
@@ -373,7 +373,7 @@ class PriorityScoringEngine:
         
         # Start with priority level and total score
         explanation_parts = [
-            f"Priority: {priority_level.value} (Impact Score: {total_score}/100)"
+            f"Priority: {priority_level.value} (Impact Score: {total_score}/50)"
         ]
         
         # Add contributing factors (only those with non-zero scores)

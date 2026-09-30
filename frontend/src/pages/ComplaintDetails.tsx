@@ -103,7 +103,7 @@ const ComplaintDetails: React.FC = () => {
               </div>
               <div className="complaint-meta">
                 <p>Category: <strong>{complaint.category}</strong></p>
-                <p>Impact Score: <strong>{complaint.impact_score}/100</strong></p>
+                <p>Impact Score: <strong>{complaint.impact_score}/50</strong></p>
               </div>
             </div>
 

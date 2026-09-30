@@ -129,7 +129,7 @@ const Dashboard: React.FC = () => {
                         {formatDate(complaint.created_at)}
                       </span>
                       <span className="complaint-card-score">
-                        Score: {complaint.impact_score}/100
+                        Score: {complaint.impact_score}/50
                       </span>
                     </div>
                   </Link>
