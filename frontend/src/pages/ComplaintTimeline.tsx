@@ -95,13 +95,18 @@ const ComplaintTimeline: React.FC = () => {
     }
   };
 
-  const formatDuration = (duration: { hours: number; days: number; formatted: string }) => {
+  const formatDuration = (duration: { hours: number; days: number; formatted: string; seconds?: number }) => {
     if (duration.days >= 1) {
       return `${duration.days.toFixed(1)} days`;
     } else if (duration.hours >= 1) {
       return `${duration.hours.toFixed(1)} hours`;
+    } else if (duration.seconds !== undefined) {
+      if (duration.seconds >= 60) {
+        return `${Math.floor(duration.seconds / 60)} minutes`;
+      }
+      return `${Math.floor(duration.seconds)} seconds`;
     } else {
-      return duration.formatted;
+      return duration.formatted.split('.')[0];
     }
   };
 

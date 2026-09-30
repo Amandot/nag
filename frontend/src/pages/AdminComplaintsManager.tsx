@@ -7,6 +7,7 @@ import {
   DashboardSummary,
 } from '../api/adminComplaints';
 import './AdminComplaintsManager.css';
+import './AdminDashboard.css';
 
 interface Complaint {
   complaint_id: string;
@@ -43,7 +44,7 @@ const AdminComplaintsManager: React.FC = () => {
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Filters
   const [filters, setFilters] = useState<ComplaintFilters>({
     page: 1,
@@ -51,7 +52,7 @@ const AdminComplaintsManager: React.FC = () => {
     sort_by: 'created_at',
     sort_order: 'desc',
   });
-  
+
   // Pagination
   const [pagination, setPagination] = useState({
     page: 1,
@@ -71,13 +72,13 @@ const AdminComplaintsManager: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Load complaints and summary in parallel
       const [complaintsData, summaryData] = await Promise.all([
         getAllComplaints(filters),
         getDashboardSummary(),
       ]);
-      
+
       setComplaints(complaintsData.complaints);
       setPagination(complaintsData.pagination);
       setSummary(summaryData);
@@ -155,6 +156,31 @@ const AdminComplaintsManager: React.FC = () => {
 
   return (
     <div className="admin-complaints-manager">
+      {/* Admin Navigation */}
+      <nav className="admin-nav">
+        <div className="admin-nav-brand">
+          <h1>Admin Dashboard</h1>
+        </div>
+        <div className="admin-nav-tabs">
+          <button onClick={() => navigate('/admin')}>
+            Overview & Analytics
+          </button>
+          <button className="active">
+            Complaints Manager
+          </button>
+          <button onClick={() => navigate('/admin/reports')}>
+            Reports
+          </button>
+        </div>
+        <div className="admin-nav-actions">
+          <button className="btn-logout" onClick={() => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            navigate('/login');
+          }}>Logout</button>
+        </div>
+      </nav>
+
       {/* Dashboard Summary */}
       {summary && (
         <div className="dashboard-summary">

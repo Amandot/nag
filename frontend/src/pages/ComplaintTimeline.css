@@ -60,22 +60,22 @@
 }
 
 .value.priority-critical {
-  color: #dc3545;
+  color: #ffffff;
   font-weight: 600;
 }
 
 .value.priority-high {
-  color: #ff9800;
+  color: #ffffff;
   font-weight: 600;
 }
 
 .value.priority-medium {
-  color: #ffc107;
+  color: #ffffff;
   font-weight: 600;
 }
 
 .value.priority-low {
-  color: #28a745;
+  color: #ffffff;
   font-weight: 600;
 }
 
